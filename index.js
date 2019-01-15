@@ -19,10 +19,11 @@ visualRecognition.classify(params, function(err, response) {
   else{
     //Store the response into a string
     var results = JSON.stringify(response, null,2);
-    res.end(results);
+    res.write(response.images.constructor.name + "\n");
+    res.write(response.images[0].classifiers.constructor.name + "\n");
+    res.end(response.images[0].classifiers[0].classes[0].score +"\n" );
+
     console.log(results);
-
-
   }
 });
 
