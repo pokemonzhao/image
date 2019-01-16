@@ -10,7 +10,7 @@ var visualRecognition = new VisualRecognitionV3({
 });
 
 var params = {
-  url:"https://www.t-mobile.com/content/dam/t-mobile/en-p/cell-phones/apple/apple-iphone-x/silver/Apple-iPhoneX-Silver-1-3x.jpg"
+  url:"https://www.gillettepepsicola.com/files/cache/26d31d739377b658df6f7c20d145a655_f561.jpg"
 };
 
 visualRecognition.classify(params, function(err, response) {
@@ -19,10 +19,15 @@ visualRecognition.classify(params, function(err, response) {
   else{
     //Store the response into a string
     var results = JSON.stringify(response, null,2);
-    res.write(response.images.constructor.name + "\n");
-    res.write(response.images[0].classifiers.constructor.name + "\n");
-    res.end(response.images[0].classifiers[0].classes[0].score +"\n" );
-
+    //res.write(response.images.constructor.name + "\n");
+    //res.write(response.images[0].classifiers.constructor.name + "\n");
+    //res.end(response.images[0].classifiers[0].classes[0].score + "\n" );
+    var class_col = response.images[0].classifiers[0].classes;
+    for(i=0; i<class_col.length;i ++){
+            res.write(class_col[i].class + "\t");
+            res.write(class_col[i].score + "\n");
+    }
+            res.end("END");
     console.log(results);
   }
 });
